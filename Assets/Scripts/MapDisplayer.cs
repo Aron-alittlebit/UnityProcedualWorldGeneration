@@ -4,25 +4,11 @@ using UnityEngine;
 public class MapDisplayer : MonoBehaviour
 {
     public Renderer textureRenderer;
-    public void DrawNoiseMap(float[,] noiseMap)
+    public void DrawMap(Texture2D texture)
     {
-        int width = noiseMap.GetLength(0);
-        int height = noiseMap.GetLength(1);
-        Texture2D texture = new Texture2D(height, width);
-        Color[] colours = new Color[width * height];
-
-        for(int y = 0; y < height; y++)
-        {
-            for(int x = 0; x < width; x++)
-            {
-                colours[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x, y]);
-            }
-        }
-
-        texture.SetPixels(colours);
-        texture.Apply();
-
         textureRenderer.sharedMaterial.mainTexture = texture;
-        textureRenderer.transform.localScale = new Vector3(width, 1, height);
+        textureRenderer.transform.localScale = new Vector3(texture.width, 1, texture.height);
     }
+
+    
 }
