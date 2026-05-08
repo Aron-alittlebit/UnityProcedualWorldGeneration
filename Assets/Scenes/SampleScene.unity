@@ -475,14 +475,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a79f2d54837cdf4a8ea2c432a291dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
+  drawMode: 1
   Height: 100
   Width: 100
-  Scale: 47.45
-  Octaves: 12
+  Scale: 50
+  Octaves: 4
   Persistence: 0.7
-  Lacunarity: 1.96
-  Offset: {x: 1.8, y: 0.95}
+  Lacunarity: 2
+  Offset: {x: 0, y: 0}
   Seed: 2
+  Regions:
+  - name: Water
+    colour: {r: 0.13968495, g: 0.560946, b: 0.6886792, a: 0}
+    height: 0.4
+  - name: Grass
+    colour: {r: 0.12121353, g: 0.6132076, b: 0.10123709, a: 1}
+    height: 0.6
+  - name: Mountain
+    colour: {r: 0.31132078, g: 0.3098523, b: 0.3098523, a: 0}
+    height: 1
   AutoUpdate: 1
 --- !u!4 &1556026527
 Transform:
