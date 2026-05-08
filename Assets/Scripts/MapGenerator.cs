@@ -13,6 +13,9 @@ public class MapGenerator : MonoBehaviour
     public int Seed;
     public RegionType[] Regions;
 
+    public float HeightMultiplier;
+    public AnimationCurve Curve;
+
     public bool AutoUpdate;
     public void GenerateMap()
     {
@@ -42,7 +45,8 @@ public class MapGenerator : MonoBehaviour
         else if (drawMode == DrawMode.Coloured)
             displayer.DrawMap(TextureGenerator.TextureFromColourMap(colourMap,Width,Height));
         else if(drawMode == DrawMode.Mesh)
-            displayer.DrawMesh(MeshGenerator.GenerateMesh(map),TextureGenerator.TextureFromColourMap(colourMap, Width, Height));
+            displayer.DrawMesh(MeshGenerator.GenerateMesh(map, HeightMultiplier, Curve)
+                ,TextureGenerator.TextureFromColourMap(colourMap, Width, Height));
 
     }
 
