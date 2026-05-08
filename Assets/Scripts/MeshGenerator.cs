@@ -3,17 +3,19 @@ using UnityEngine;
 public static class MeshGenerator 
 {
     public static MeshData GenerateMesh(float[,] noisemap, float heightMultiplier,
-        AnimationCurve curve)
+        AnimationCurve curve, int levelOfDetail)
     {
         int width = noisemap.GetLength(0);
         int height = noisemap.GetLength(1);
         float topleftx = (width-1) / -2f;
         float topleftz = (height - 1) / 2f;
-        MeshData meshData = new(width, height);
+        int meshSimplificationIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
+        int verticesPerLine = (width-1) / meshSimplificationIncrement+1;
+        MeshData meshData = new(verticesPerLine, verticesPerLine);
         int i = 0;
-        for(int y = 0; y < height; y++)
+        for(int y = 0; y < height; y += meshSimplificationIncrement)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < width; x += meshSimplificationIncrement)
             {
                 meshData.vertices[i] = new Vector3(topleftx + x,
                     curve.Evaluate(noisemap[x, y])*heightMultiplier, topleftz - y);
@@ -21,8 +23,8 @@ public static class MeshGenerator
 
                 if(x < width-1&&y < height - 1)
                 {
-                    meshData.AddTriangle(i, i + width + 1, i + width);
-                    meshData.AddTriangle(i, i + 1, i + width + 1);
+                    meshData.AddTriangle(i, i + verticesPerLine + 1, i + verticesPerLine);
+                    meshData.AddTriangle(i, i + 1, i + verticesPerLine + 1);
                 }
                 
                 i++;
